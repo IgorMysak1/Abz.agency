@@ -1,0 +1,19 @@
+@import "../utilits/mediaQueryConstants.scss";
+
+.button {
+  background: #f4e041;
+  border-radius: 80px;
+  padding: 4px 29px;
+  outline: none;
+  border: none;
+  font-size: 16px;
+  line-height: 26px;
+  color: rgba(0, 0, 0, 0.87);
+  cursor: pointer;
+  @media (max-width: $md3) {
+    padding: 4px 25px;
+  }
+  @media (max-width: $md4) {
+    padding: 4px 11px;
+  }
+}

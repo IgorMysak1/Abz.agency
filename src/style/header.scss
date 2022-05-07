@@ -1,0 +1,44 @@
+@import "../utilits/mediaQueryConstants.scss";
+
+.header {
+  background: #ffffff;
+  width: 100%;
+
+  &__wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    padding: 13px 0;
+    @media (max-width: $md1) {
+      padding: 13px 60px;
+    }
+    @media (max-width: $md3) {
+      padding: 13px 32px;
+    }
+    @media (max-width: $md4) {
+      padding: 13px 16px;
+    }
+  }
+  &__logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    h1 {
+      color: #000000;
+      font-size: 25px;
+      padding-left: 9px;
+      @media (max-width: $md4) {
+        padding-left: 2px;
+        font-size: 20px;
+      }
+    }
+  }
+  &__registration {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    button:first-child {
+      margin-right: 10px;
+    }
+  }
+}
