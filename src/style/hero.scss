@@ -1,0 +1,49 @@
+@import "../utilits/mediaQueryConstants.scss";
+.hero {
+  width: 100%;
+  height: calc(100vh - 60px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0 auto;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url(../../public/img/field.jpeg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  &__title {
+    width: 35%;
+    font-size: 40px;
+    line-height: 40px;
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 21px;
+    @media (max-width: $md2) {
+      width: 50%;
+    }
+    @media (max-width: $md3) {
+      width: 60%;
+    }
+    @media (max-width: $md4) {
+      width: 90%;
+    }
+  }
+  &__subtitle {
+    width: 35%;
+    font-size: 16px;
+    line-height: 26px;
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 32px;
+    @media (max-width: $md2) {
+      width: 50%;
+    }
+    @media (max-width: $md3) {
+      width: 65%;
+    }
+    @media (max-width: $md4) {
+      width: 90%;
+    }
+  }
+}
