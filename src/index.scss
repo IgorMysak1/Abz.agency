@@ -1,4 +1,4 @@
-@import "./utilits/mediaQueryConstants.scss";
+@import "./style/mediaQueryConstants.scss";
 
 * {
   margin: 0;
@@ -6,7 +6,7 @@
   box-sizing: border-box;
 }
 body {
-  background: #8f4747;
+  background: #f8f8f8;
 }
 ._container {
   max-width: $maxWidthContainer;

@@ -1,0 +1,49 @@
+@import "../style/mediaQueryConstants.scss";
+.form {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  @media (max-width: $md4) {
+    width: 90%;
+  }
+  &__inputs {
+    width: 100%;
+  }
+  &__radio {
+    width: 100%;
+  }
+  &__photo {
+    width: 100%;
+    margin: 50px 0px;
+    border: 1px solid #d0cfcf;
+    border-radius: 4px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    label {
+      cursor: pointer;
+      border: 1px solid rgba(0, 0, 0, 0.87);
+      border-radius: 4px 0px 0px 4px;
+      padding: 14px 15px;
+    }
+    span {
+      padding-left: 16px;
+    }
+    input {
+      display: none;
+    }
+  }
+}
+.radio-form {
+  margin-top: 35px;
+  &__title {
+    text-align: center;
+    font-size: 16px;
+    line-height: 40px;
+    color: rgba(0, 0, 0, 0.87);
+    margin-bottom: 11px;
+    text-align: left;
+  }
+}
