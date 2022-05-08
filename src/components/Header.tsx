@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import "../style/header.scss";
 import { Button } from "./Button";
+import { scrollTo } from "../utilits/scrollTo";
 export const Header: FC = () => {
   return (
     <div className="header">
@@ -11,8 +12,8 @@ export const Header: FC = () => {
             <h1>TestTask</h1>
           </div>
           <div className="header__registration">
-            <Button text="Users" handler={() => console.log("Users")} />
-            <Button text="Sign Up" handler={() => console.log("Sign Up")} />
+            <Button text="Users" handler={() => scrollTo(".registeredUsers")} />
+            <Button text="Sign Up" handler={() => scrollTo(".signUp")} />
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import "../style/hero.scss";
 import { Button } from "./Button";
+import { scrollTo } from "../utilits/scrollTo";
 export const Hero: FC = () => {
   return (
     <div className="hero">
@@ -12,12 +13,7 @@ export const Hero: FC = () => {
         mind. They should also be excited to learn, as the world of Front-End
         Development keeps evolving.
       </div>
-      <Button
-        text="Sign Up"
-        handler={() => {
-          console.log("Sign Up");
-        }}
-      />
+      <Button text="Sign Up" handler={() => scrollTo(".signUp")} />
     </div>
   );
 };
