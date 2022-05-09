@@ -1,7 +1,7 @@
 import React, { FC } from "react";
+import { Button, scrollTo } from "./index";
 import "../style/header.scss";
-import { Button } from "./Button";
-import { scrollTo } from "../utilits/scrollTo";
+
 export const Header: FC = () => {
   return (
     <div className="header">
@@ -13,7 +13,7 @@ export const Header: FC = () => {
           </div>
           <div className="header__registration">
             <Button text="Users" handler={() => scrollTo(".registeredUsers")} />
-            <Button text="Sign Up" handler={() => scrollTo(".signUp")} />
+            <Button text="Sign Up" handler={() => scrollTo(".form")} />
           </div>
         </div>
       </div>

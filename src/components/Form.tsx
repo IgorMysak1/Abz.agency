@@ -5,18 +5,25 @@ import React, {
   Dispatch,
   SetStateAction,
 } from "react";
-import { Input } from "./Input";
-import { FieldsProperties } from "../constants/fieldsProperties";
-import { RadioButton } from "./RadioButton";
-import { Button } from "./Button";
-import { getJobs, setUser } from "../services/api";
-import { name, email, phone } from "../constants/regExp";
-import { ValidFields } from "../constants/ValidFields";
+import {
+  Input,
+  FieldsProperties,
+  RadioButton,
+  Button,
+  getJobs,
+  setUser,
+  name,
+  email,
+  phone,
+  ValidFields,
+} from "./index";
 import "../style/form.scss";
+
 interface FormProps {
   successfullyRegistered: boolean;
   setSuccessfullyRegistered: Dispatch<SetStateAction<boolean>>;
 }
+
 export const Form: FC<FormProps> = ({
   successfullyRegistered,
   setSuccessfullyRegistered,

@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from "react";
-import { Button } from "./Button";
-import { getUsers } from "../services/api";
+import { Button, getUsers } from "./index";
 import "../style/registeredUsers.scss";
+
 interface RegisteredUsersProps {
   successfullyRegistered: boolean;
 }
