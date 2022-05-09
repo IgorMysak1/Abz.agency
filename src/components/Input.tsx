@@ -1,38 +1,40 @@
-import React, { FC, Dispatch, SetStateAction } from "react";
-import "../style/input.scss";
+import React, { FC } from "react";
 import {
   fieldsProperties,
   FieldsProperties,
 } from "../constants/fieldsProperties";
+import "../style/input.scss";
 
 interface InputProps {
-  placeholder: keyof FieldsProperties;
+  valid: boolean;
+  placeholder: "name" | "email" | "phone";
   hint?: string;
-  inputsValue: FieldsProperties;
-  setInputsValue: Dispatch<SetStateAction<FieldsProperties>>;
+  formProperties: FieldsProperties;
+  onChangeInputValue: (
+    e: React.ChangeEvent<HTMLInputElement>,
+    placeholder: string
+  ) => void;
 }
 export const Input: FC<InputProps> = ({
+  valid,
   placeholder,
   hint,
-  inputsValue,
-  setInputsValue,
+  formProperties,
+  onChangeInputValue,
 }) => {
-  const onChangeInputValue: React.ChangeEventHandler<HTMLInputElement> = (
-    e
-  ) => {
-    setInputsValue((prev) => ({ ...prev, [placeholder]: e.target.value }));
-  };
-
   return (
     <div className="input">
+      {!!formProperties[placeholder].length && (
+        <span className="input__title">{placeholder}</span>
+      )}
       <input
         type="text"
         placeholder={fieldsProperties[placeholder]}
-        value={inputsValue[placeholder]}
-        onChange={onChangeInputValue}
-        className="input__input"
+        value={formProperties[placeholder]}
+        onChange={(e) => onChangeInputValue(e, placeholder)}
+        className={`input__input ${!valid ? "invalid" : ""}`}
       />
-      {hint && <span className="input__hint">{hint}</span>}
+      {!valid && <span className="input__hint">{hint}</span>}
     </div>
   );
 };

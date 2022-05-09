@@ -22,14 +22,25 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    position: relative;
+    padding: 15px;
+    &.invalid {
+      border: 2px solid #cb3d40;
+    }
+    &.invalid label {
+      border: 2px solid #cb3d40;
+      left: -2px;
+    }
     label {
       cursor: pointer;
       border: 1px solid rgba(0, 0, 0, 0.87);
       border-radius: 4px 0px 0px 4px;
-      padding: 14px 15px;
+      padding: 15px;
+      position: absolute;
+      left: -1px;
     }
     span {
-      padding-left: 16px;
+      padding-left: 84px;
     }
     input {
       display: none;
@@ -45,5 +56,19 @@
     color: rgba(0, 0, 0, 0.87);
     margin-bottom: 11px;
     text-align: left;
+  }
+}
+.photo-form {
+  &__label {
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.87);
+    border-radius: 4px 0px 0px 4px;
+    padding: 15px;
+  }
+  &__name {
+    padding-left: 16px;
+  }
+  &__input {
+    display: none;
   }
 }

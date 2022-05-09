@@ -3,13 +3,14 @@ import "../style/radioButton.scss";
 interface RadioButtonProps {
   defaultChecked?: boolean;
   text: string;
+  onChangeRadioButton: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
-export const RadioButton: FC<RadioButtonProps> = ({ text, defaultChecked }) => {
-  const onChangeRadioButton: React.ChangeEventHandler<HTMLInputElement> = (
-    e
-  ) => {
-    console.log(e.target.value);
-  };
+
+export const RadioButton: FC<RadioButtonProps> = ({
+  text,
+  defaultChecked,
+  onChangeRadioButton,
+}) => {
   return (
     <label className="radioButton">
       {text}

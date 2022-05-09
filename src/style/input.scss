@@ -8,15 +8,30 @@
     border-radius: 4px;
     padding: 14px 16px;
     margin-top: 50px;
+    background: #f8f8f8;
     ::placeholder {
       font-size: 16px;
       line-height: 26px;
       color: #7e7e7e;
     }
+    &.invalid {
+      border: 2px solid #cb3d40;
+    }
+  }
+  &__title {
+    font-size: 14px;
+    padding: 2px 4px;
+    color: #7e7e7e;
+    position: absolute;
+    z-index: 10;
+    left: 9px;
+    top: 38px;
+    background: #f8f8f8;
+    text-transform: capitalize;
   }
   &__hint {
     position: absolute;
-    left: 0;
+    left: 15px;
     bottom: -16px;
     font-size: 12px;
     line-height: 14px;
