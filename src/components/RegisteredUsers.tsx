@@ -19,12 +19,16 @@ export const RegisteredUsers: FC<RegisteredUsersProps> = ({
     users: [],
   });
   useEffect(() => {
-    updateUser(1, 6);
+    updateUser(1, 6, false);
   }, [successfullyRegistered]);
-  const updateUser = async (page: number, count: number) => {
+  const updateUser = async (
+    page: number,
+    count: number,
+    letScroll: boolean
+  ) => {
     const response = await getUsers(page, count);
     setListOfUsers(response);
-    scrollTo(".registeredUsers");
+    letScroll && scrollTo(".registeredUsers");
   };
   return (
     <div className="registeredUsers">
@@ -58,7 +62,7 @@ export const RegisteredUsers: FC<RegisteredUsersProps> = ({
             className={`registeredUsers__pagination ${
               listOfUsers.page === index + 1 && "current"
             }`}
-            onClick={() => updateUser(index + 1, 6)}
+            onClick={() => updateUser(index + 1, 6, true)}
           >
             {index + 1}
           </span>
@@ -68,12 +72,12 @@ export const RegisteredUsers: FC<RegisteredUsersProps> = ({
         <Button
           disabled={listOfUsers.links.prev_url === null}
           text="Prev"
-          handler={() => updateUser(listOfUsers.page - 1, 6)}
+          handler={() => updateUser(listOfUsers.page - 1, 6, false)}
         />
         <Button
           disabled={listOfUsers.links.next_url === null}
           text="Next"
-          handler={() => updateUser(listOfUsers.page + 1, 6)}
+          handler={() => updateUser(listOfUsers.page + 1, 6, false)}
         />
       </div>
     </div>
