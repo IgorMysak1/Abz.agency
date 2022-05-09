@@ -1,8 +1,9 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 import { Input } from "./Input";
 import { FieldsProperties } from "../constants/fieldsProperties";
 import { RadioButton } from "./RadioButton";
 import { Button } from "./Button";
+import { getJobs } from "../services/ap";
 import { name, email, phone } from "../constants/regExp";
 import { ValidFields } from "../constants/ValidFields";
 import "../style/form.scss";
@@ -26,6 +27,14 @@ export const Form: FC = () => {
     validEmail: true,
     validFile: true,
   });
+  const [kindJobs, setKindJobs] = useState([]);
+  useEffect(() => {
+    (async () => {
+      const response = await getJobs();
+      setKindJobs(response);
+      setFormProperties({ ...formProperties, job: response[0].name });
+    })();
+  }, []);
   const onChangeInputValue = (
     e: React.ChangeEvent<HTMLInputElement>,
     placeholder: string
@@ -35,7 +44,9 @@ export const Form: FC = () => {
       [placeholder]: e.target.value,
     });
   };
-  const onChangeInputFile: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+  const onChangeInputFile: React.ChangeEventHandler<HTMLInputElement> = (
+    e
+  ): void => {
     const fileName = e.target.files?.[0]?.name;
     setFormProperties({
       ...formProperties,
@@ -47,7 +58,7 @@ export const Form: FC = () => {
   };
   const onChangeRadioButton: React.ChangeEventHandler<HTMLInputElement> = (
     e
-  ) => {
+  ): void => {
     setFormProperties({ ...formProperties, job: e.target.value });
   };
   const submitForm = (): void => {
@@ -96,20 +107,14 @@ export const Form: FC = () => {
           </div>
           <div className="form__radio radio-form">
             <h1 className="radio-form__title">Select your position</h1>
-            <RadioButton
-              defaultChecked
-              text="Frontend developer"
-              onChangeRadioButton={onChangeRadioButton}
-            />
-            <RadioButton
-              text="Backend developer"
-              onChangeRadioButton={onChangeRadioButton}
-            />
-            <RadioButton
-              text="Designer"
-              onChangeRadioButton={onChangeRadioButton}
-            />
-            <RadioButton text="QA" onChangeRadioButton={onChangeRadioButton} />
+            {kindJobs.map(({ id, name }, index) => (
+              <RadioButton
+                key={id}
+                defaultChecked={index === 0}
+                text={name}
+                onChangeRadioButton={onChangeRadioButton}
+              />
+            ))}
           </div>
           <div
             className={`form__photo ${

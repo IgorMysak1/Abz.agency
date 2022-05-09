@@ -10,3 +10,13 @@ export const getUsers = async (page: number, count: number) => {
     alert(`Error: ${error}`);
   }
 };
+export const getJobs = async () => {
+  try {
+    const response = await axios.get(
+      `https://frontend-test-assignment-api.abz.agency/api/v1/positions`
+    );
+    return response.data.positions;
+  } catch (error) {
+    alert(`Error: ${error}`);
+  }
+};
