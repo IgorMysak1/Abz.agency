@@ -1,9 +1,13 @@
 import React, { FC, useEffect, useState } from "react";
 import { Button } from "./Button";
-import { getUsers } from "../services/ap";
+import { getUsers } from "../services/api";
 import "../style/registeredUsers.scss";
-
-export const RegisteredUsers: FC = () => {
+interface RegisteredUsersProps {
+  successfullyRegistered: boolean;
+}
+export const RegisteredUsers: FC<RegisteredUsersProps> = ({
+  successfullyRegistered,
+}) => {
   const [listOfUsers, setListOfUsers] = useState({
     page: 1,
     total_pages: 1,
@@ -16,7 +20,7 @@ export const RegisteredUsers: FC = () => {
   });
   useEffect(() => {
     updateUser(1, 6);
-  }, []);
+  }, [successfullyRegistered]);
   const updateUser = async (page: number, count: number) => {
     const response = await getUsers(page, count);
     setListOfUsers(response);

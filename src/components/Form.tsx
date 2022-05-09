@@ -1,25 +1,32 @@
-import React, { FC, useState, useEffect } from "react";
+import React, {
+  FC,
+  useState,
+  useEffect,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import { Input } from "./Input";
 import { FieldsProperties } from "../constants/fieldsProperties";
 import { RadioButton } from "./RadioButton";
 import { Button } from "./Button";
-import { getJobs } from "../services/ap";
+import { getJobs, setUser } from "../services/api";
 import { name, email, phone } from "../constants/regExp";
 import { ValidFields } from "../constants/ValidFields";
 import "../style/form.scss";
-
-export const Form: FC = () => {
-  const [successfullyRegistered, setSuccessfullyRegistered] =
-    useState<boolean>(false);
+interface FormProps {
+  successfullyRegistered: boolean;
+  setSuccessfullyRegistered: Dispatch<SetStateAction<boolean>>;
+}
+export const Form: FC<FormProps> = ({
+  successfullyRegistered,
+  setSuccessfullyRegistered,
+}) => {
   const [formProperties, setFormProperties] = useState<FieldsProperties>({
     name: "",
     phone: "",
     email: "",
-    job: "Frontend developer",
-    file: {
-      name: "Upload your photo",
-      length: 0,
-    },
+    job: "",
+    file: { name: "Upload your photo" } as File,
   });
   const [isValidFields, setIsValidFields] = useState<ValidFields>({
     validName: true,
@@ -35,6 +42,7 @@ export const Form: FC = () => {
       setFormProperties({ ...formProperties, job: response[0].name });
     })();
   }, []);
+
   const onChangeInputValue = (
     e: React.ChangeEvent<HTMLInputElement>,
     placeholder: string
@@ -47,31 +55,30 @@ export const Form: FC = () => {
   const onChangeInputFile: React.ChangeEventHandler<HTMLInputElement> = (
     e
   ): void => {
-    const fileName = e.target.files?.[0]?.name;
-    setFormProperties({
-      ...formProperties,
-      file: {
-        name: fileName ?? "Upload your photo",
-        length: fileName === undefined ? 0 : 1,
-      },
-    });
+    e.target.files &&
+      setFormProperties({
+        ...formProperties,
+        file: e.target.files[0] ?? { name: "Upload your photo" },
+      });
   };
   const onChangeRadioButton: React.ChangeEventHandler<HTMLInputElement> = (
     e
   ): void => {
     setFormProperties({ ...formProperties, job: e.target.value });
   };
-  const submitForm = (): void => {
+  const submitForm = async () => {
     const validProperties = {
       validName: !!formProperties.name.match(name),
       validEmail: !!formProperties.email.match(email),
       validPhone: !!formProperties.phone.match(phone),
-      validFile: !!formProperties.file.length,
+      validFile: !!formProperties.file.size,
     };
     setIsValidFields(validProperties);
     if (!Object.values(validProperties).every(Boolean)) return;
-    setSuccessfullyRegistered(true);
+    const response = await setUser(formProperties);
+    response?.ok && setSuccessfullyRegistered(true);
   };
+
   return (
     <form className="form">
       {successfullyRegistered ? (
@@ -122,8 +129,14 @@ export const Form: FC = () => {
             }`}
           >
             <label htmlFor="files">Upload</label>
-            <span>{formProperties.file.name}</span>
-            <input id="files" type="file" onChange={onChangeInputFile}></input>
+            <span>{formProperties.file?.name}</span>
+            <input
+              id="files"
+              type="file"
+              size={5242880}
+              accept=".jpg,.jpeg"
+              onChange={onChangeInputFile}
+            ></input>
           </div>
           <Button text="Sign Up" handler={submitForm} />
         </div>
