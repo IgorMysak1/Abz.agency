@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import { Button, getUsers } from "./index";
+import { Button, getUsers, scrollTo } from "./index";
 import "../style/registeredUsers.scss";
 
 interface RegisteredUsersProps {
@@ -24,6 +24,7 @@ export const RegisteredUsers: FC<RegisteredUsersProps> = ({
   const updateUser = async (page: number, count: number) => {
     const response = await getUsers(page, count);
     setListOfUsers(response);
+    scrollTo(".registeredUsers");
   };
   return (
     <div className="registeredUsers">
