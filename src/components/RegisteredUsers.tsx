@@ -1,80 +1,76 @@
-import React, { FC } from "react";
-import "../style/registeredUsers.scss";
+import React, { FC, useEffect, useState } from "react";
 import { Button } from "./Button";
-const arr = [
-  {
-    id: "30",
-    name: "Angel",
-    email: "angel.williams@example.com",
-    phone: "+380496540023",
-    position: "Designer",
-    position_id: "4",
-    registration_timestamp: 1537777441,
-    photo: "img/user1.jpg",
-  },
-  {
-    id: "29",
-    name: "Mattie",
-    email: "mattie.lee@example.com",
-    phone: "+380204819073",
-    position: "Designer",
-    position_id: "4",
-    registration_timestamp: 1537691099,
-    photo: "img/user2.jpg",
-  },
-  {
-    id: "36",
-    name: "Joshua",
-    email: "joshua.dean@example.com",
-    phone: "+380542161925",
-    position: "Designer",
-    position_id: "4",
-    registration_timestamp: 1537661281,
-    photo: "img/user3.jpg",
-  },
-  {
-    id: "37",
-    name: "Lisa",
-    email: "lisa.medina@example.com",
-    phone: "+380564753087",
-    position: "Security",
-    position_id: "3",
-    registration_timestamp: 1537639019,
-    photo: "img/user4.jpg",
-  },
-  {
-    id: "42",
-    name: "Lorraine",
-    email: "lorraine.morris@example.com",
-    phone: "+380945198009",
-    position: "Designer",
-    position_id: "4",
-    registration_timestamp: 1537629182,
-    photo: "img/user5.jpg",
-  },
-];
+import { getUsers } from "../services/ap";
+import "../style/registeredUsers.scss";
+
 export const RegisteredUsers: FC = () => {
+  const [listOfUsers, setListOfUsers] = useState({
+    page: 1,
+    total_pages: 1,
+    total_users: 1,
+    links: {
+      next_url: "",
+      prev_url: "",
+    },
+    users: [],
+  });
+  useEffect(() => {
+    updateUser(1, 6);
+  }, []);
+  const updateUser = async (page: number, count: number) => {
+    const response = await getUsers(page, count);
+    setListOfUsers(response);
+  };
   return (
     <div className="registeredUsers">
       <h1 className="registeredUsers__title">Working with GET request</h1>
       <div className="registeredUsers__users">
-        {arr.map(({ id, name, email, phone, position, photo }) => (
-          <div key={id} className="registeredUsers__user user-registeredUsers">
-            <img
-              className="user-registeredUsers__image"
-              src={photo}
-              alt={name}
-            />
-            <h2 className="user-registeredUsers__name">{name}</h2>
-            <div className="user-registeredUsers__info">
-              <span>{position}</span>
-              <span>{email}</span>
-              <span>{phone}</span>
+        {listOfUsers.users.map(
+          ({ id, name, email, phone, position, photo }) => (
+            <div
+              key={id}
+              className="registeredUsers__user user-registeredUsers"
+            >
+              <img
+                className="user-registeredUsers__image"
+                src={photo}
+                alt={name}
+              />
+              <h2 className="user-registeredUsers__name">{name}</h2>
+              <div className="user-registeredUsers__info">
+                <span>{position}</span>
+                <span>{email}</span>
+                <span>{phone}</span>
+              </div>
             </div>
-          </div>
+          )
+        )}
+      </div>
+      <div className="registeredUsers__paginations">
+        {new Array(listOfUsers.total_pages).fill(0).map((_, index) => (
+          <span
+            key={index + 1}
+            className={`registeredUsers__pagination ${
+              listOfUsers.page === index + 1 && "current"
+            }`}
+            onClick={() => updateUser(index + 1, 6)}
+          >
+            {index + 1}
+          </span>
         ))}
       </div>
-      <Button text="Show more" handler={() => console.log("Show more")} />
+      <div className="registeredUsers__btns">
+        <Button
+          disabled={listOfUsers.links.prev_url === null}
+          text="Prev"
+          handler={() => updateUser(listOfUsers.page - 1, 6)}
+        />
+        <Button
+          disabled={listOfUsers.links.next_url === null}
+          text="Next"
+          handler={() => updateUser(listOfUsers.page + 1, 6)}
+        />
+      </div>
     </div>
   );
 };

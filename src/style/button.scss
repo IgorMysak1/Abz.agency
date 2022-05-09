@@ -16,4 +16,8 @@
   @media (max-width: $md4) {
     padding: 4px 11px;
   }
+  &:disabled {
+    background: #b4b4b4;
+    color: #ffffffde;
+  }
 }

@@ -3,7 +3,7 @@ import { Input } from "./Input";
 import { FieldsProperties } from "../constants/fieldsProperties";
 import { RadioButton } from "./RadioButton";
 import { Button } from "./Button";
-import { name, email, phone } from "../constants/regExpConstants";
+import { name, email, phone } from "../constants/regExp";
 import { ValidFields } from "../constants/ValidFields";
 import "../style/form.scss";
 
