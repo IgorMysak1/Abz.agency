@@ -1,12 +1,20 @@
 @import "./style/mediaQueryConstants.scss";
-
+@font-face {
+  font-family: "Nunito-Regular";
+  src: local("Nunito-Regular"),
+    url("./assets/fonts/Nunito-Regular.ttf") format("truetype");
+}
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 body {
+  font-family: "Nunito-Regular";
   background: #f8f8f8;
+}
+input {
+  font-family: "Nunito-Regular";
 }
 ._container {
   max-width: $maxWidthContainer;
